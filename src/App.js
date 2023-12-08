@@ -9,7 +9,9 @@ function App() {
   }
   return (
     <div className="App">
-      <button onClick={toggleGame}>{gameRunning ? "Pause" : "Start"}</button>
+      <button className="video-game-button" onClick={toggleGame}>
+        {gameRunning ? "Pause" : "Start"}
+      </button>
     </div>
   );
 }
