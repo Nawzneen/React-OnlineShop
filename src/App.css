@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   background: url(./Images/workshopBackground.jpg);
   background-size: cover;
@@ -88,4 +88,56 @@ div div {
 
 .video-game-button:focus:not(:focus-visible) {
   outline: 0;
+8} */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+nav {
+  height: 15vh;
+  background-color: rgb(196, 187, 173);
+  display: flex;
+  justify-content: space-between;
+  padding: 50px 50px;
+  font-size: 30px;
+  font-weight: bold;
+}
+nav a {
+  text-decoration: none;
+  padding-right: 5px;
+  font-size: 20px;
+}
+.home {
+  background-image: url(./Images/image\ 53.png);
+  padding: 5%;
+  height: 80vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.home h1,
+p {
+  color: white;
+  margin: 1rem 0;
+}
+.home button {
+  padding: 10px;
+  margin-top: 30px;
+  background-color: orangered;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.footer {
+  background-color: rgb(55, 55, 55);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  height: 5vh;
 }
