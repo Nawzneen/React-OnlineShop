@@ -89,29 +89,57 @@ div div {
 .video-game-button:focus:not(:focus-visible) {
   outline: 0;
 8} */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+h1,
+h2,
+h3 {
+  font-weight: bold;
+}
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.home,
+.about {
+  flex-grow: 1;
+}
+nav,
+footer {
+  height: 10vh !important;
+  flex-shrink: 0 !important;
 }
 nav {
-  height: 15vh;
-  background-color: rgb(196, 187, 173);
+  background-color: #fff7ed;
   display: flex;
   justify-content: space-between;
-  padding: 50px 50px;
+  align-items: center;
+  /* padding: 50px 50px; */
   font-size: 30px;
   font-weight: bold;
 }
+@media (min-width: 768px) {
+  nav {
+    height: 10vh;
+    padding: 50px 100px; /* Adjust padding for larger screens */
+  }
+}
 nav a {
   text-decoration: none;
-  padding-right: 5px;
+  padding-right: 1rem;
   font-size: 20px;
+  color: black;
 }
 .home {
   background-image: url(./Images/image\ 53.png);
   padding: 5%;
-  height: 80vh;
+  /* height: 80vh; */
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -124,6 +152,12 @@ p {
   color: white;
   margin: 1rem 0;
 }
+.home h1 {
+  font-size: 3rem;
+}
+.home p {
+  font-size: 1.5rem;
+}
 .home button {
   padding: 10px;
   margin-top: 30px;
@@ -131,6 +165,10 @@ p {
   border: none;
   border-radius: 10px;
   font-weight: bold;
+  width: 18rem;
+  height: 4rem;
+  font-size: 1.2rem;
+  color: white;
 }
 .footer {
   background-color: rgb(55, 55, 55);
@@ -139,5 +177,36 @@ p {
   align-items: center;
   justify-content: center;
   color: white;
-  height: 5vh;
+  /* object-position: bottom; */
+}
+
+/* //////////// */
+.about {
+  background-color: #fff7ed;
+  /* height: 85vh; */
+}
+.img-container {
+  position: relative;
+  overflow: hidden;
+  width: 100vws;
+  height: 20vh;
+}
+.about-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top; /* This will hide the bottom part of the image */
+}
+.about-description h3,
+p {
+  color: black;
+}
+.about-card {
+  background-color: #ffcc8d;
+  padding: 2rem;
+}
+.about button {
+  background-color: black;
+  color: white;
+  margin-top: 2rem;
 }

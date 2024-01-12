@@ -4,7 +4,7 @@ import "../App.css";
 
 export default function Nav() {
   return (
-    <nav>
+    <nav className="nav-container ">
       #VANLIFE
       <div className="nav-links">
         <Link to="/Home">Home</Link>
