@@ -30,6 +30,21 @@ export default function Vans() {
     // setVansType(types);
   }
 
+  function filterType(type) {
+    console.log("type filter is", type);
+  }
+  function getBackgroundColorClass(type) {
+    switch (type) {
+      case "simple":
+        return "bg-simple";
+      case "luxury":
+        return "bg-luxury";
+      case "rugged":
+        return "bg-rugged";
+      default:
+        return "";
+    }
+  }
   return (
     <div className="van">
       <div className="container">
@@ -39,7 +54,9 @@ export default function Vans() {
             <ul className="van-filter-li d-flex justify-content-start">
               {types.map((item) => (
                 <li>
-                  <span className="van-type">{item} </span>
+                  <span className="van-type" onClick={() => filterType(item)}>
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -47,7 +64,7 @@ export default function Vans() {
           <button className="clear-filter">Clear filter</button>
         </div>
 
-        <ul className="row justify-content-between mt-5">
+        <ul className="row justify-content-center mt-5">
           {vans.map((van) => (
             <li key={van.id} className="mt-1 van-card-li">
               <div className="van-card row ">
@@ -67,7 +84,11 @@ export default function Vans() {
                   </div>
                 </div>
                 <div className="col-12  van-type_container ">
-                  <span className="van-type">{van.type}</span>
+                  <span
+                    className={`van-type ${getBackgroundColorClass(van.type)}`}
+                  >
+                    {van.type}
+                  </span>
                 </div>
               </div>
             </li>

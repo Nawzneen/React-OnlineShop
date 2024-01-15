@@ -229,10 +229,29 @@ p {
 ul {
   padding: 0;
 }
+.bg-simple {
+  background-color: #e17654;
+}
+.bg-rugged {
+  background-color: #115e59;
+}
+.bg-luxury {
+  background-color: #161616;
+}
 .van-filter-li li {
   margin-right: 1rem;
-  background-color: #ffcc8d;
+  background-color: #ffcc8d !important;
   border-radius: 5px;
+  cursor: pointer;
+}
+.van-filter-li li .van-type {
+  background-color: #fff7ed;
+  color: black;
+  text-transform: capitalize;
+  border-radius: 5px;
+}
+.van-filter-li li .van-type:hover {
+  background-color: #925710 !important;
 }
 .van li {
   list-style-type: none;
@@ -256,7 +275,7 @@ ul {
   bottom: 20px;
 }
 .van-type {
-  background-color: blue;
+  /* background-color: blue; */
   /* max-width: 70px; */
   border-radius: 5px;
   padding: 0.3rem 1rem;
