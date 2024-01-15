@@ -5,11 +5,13 @@ import "./index.css";
 import Nav from "./Components/Nav";
 import Home from "./Components/Home";
 import About from "./Components/About";
+import Vans from "./Components/Vans";
+
+import "./server";
 
 import Footer from "./Components/Footer";
 
 // import App from "./App";
-import reportWebVitals from "./reportWebVitals";
 function App() {
   return (
     <div className="app-container">
@@ -19,6 +21,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/vans" element={<Vans />} />
         </Routes>
       </BrowserRouter>
       <Footer />

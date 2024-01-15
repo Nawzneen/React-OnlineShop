@@ -1,6 +1,7 @@
 import React from "react";
 import "../App.css";
 import aboutPageImage from "../Images/about-page.png";
+import { Link } from "react-router-dom";
 
 export default function About() {
   return (
@@ -22,7 +23,9 @@ export default function About() {
           </p>
           <div className="about-card">
             <h3>Your destination is waiting. Your van is ready.</h3>
-            <button className="btn">Explore our vans</button>
+            <Link to="/vans" className="btn link-button">
+              Explore our vans
+            </Link>
           </div>
         </div>
       </div>
