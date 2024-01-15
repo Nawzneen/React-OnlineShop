@@ -4,6 +4,7 @@ import "../App.css";
 
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
+  const [vansType, setVansType] = React.useState([]);
   //   to handle the error of not rendering the page before the array is fetched from data base
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
@@ -13,7 +14,6 @@ export default function Vans() {
         const data = await response.json();
         console.log(data.vans); // Check the structure of the data
         setVans(data.vans);
-        setLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.log(error);
         setLoading(false);
@@ -22,19 +22,53 @@ export default function Vans() {
     fetchData();
   }, []);
   //   React.useEffect(() => {
-  //     fetch("/api/vans")
-  //       .then((res) => res.json())
-  //       .then((data) => setVans(data.vans));
-  //   }, []);
+  console.log("vans are", vans);
+  let types = [];
+  if (vans.length > 1) {
+    types = Array.from(new Set(vans.map((van) => van.type)));
+    console.log("types", types);
+    // setVansType(types);
+  }
+
   return (
     <div className="van">
       <div className="container">
-        <p>Here you can see the list of our vans</p>
-        <ul>
+        <h2 className="fw-bold mt-5 ">Explore our van options</h2>
+        <div className="d-flex  justify-content-between align-items-center mt-5">
+          <div>
+            <ul className="van-filter-li d-flex justify-content-start">
+              {types.map((item) => (
+                <li>
+                  <span className="van-type">{item} </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <button className="clear-filter">Clear filter</button>
+        </div>
+
+        <ul className="row justify-content-between mt-5">
           {vans.map((van) => (
-            <li key={van.id}>
-              <div>
-                <h6>{van.name}</h6>
+            <li key={van.id} className="mt-1 van-card-li">
+              <div className="van-card row ">
+                <div className="col-12 d-flex justify-content-center ">
+                  <img
+                    className="van-img"
+                    src={van.imageUrl}
+                    alt={van.name}
+                    width=""
+                  />
+                </div>
+                <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
+                  <span className="fw-bold">{van.name}</span>
+                  <div className="d-flex flex-column align-items-end">
+                    <span className="fw-bold">{van.price}$</span>
+                    <span className="d-block">/Day</span>
+                  </div>
+                </div>
+                <div className="col-12  van-type_container ">
+                  <span className="van-type">{van.type}</span>
+                </div>
               </div>
             </li>
           ))}

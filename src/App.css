@@ -211,3 +211,55 @@ p {
   color: white;
   margin-top: 2rem;
 }
+.link-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* .van-name-price_container {
+  display: flex;
+  justify-content: space-between;
+} */
+/* Vans */
+.van-card img {
+  /* width: 300px; */
+  max-width: 100%;
+  height: auto;
+}
+ul {
+  padding: 0;
+}
+.van-filter-li li {
+  margin-right: 1rem;
+  background-color: #ffcc8d;
+  border-radius: 5px;
+}
+.van li {
+  list-style-type: none;
+}
+.van-card-li {
+  width: 300px;
+}
+.clear-filter {
+  background-color: transparent;
+  text-decoration: underline;
+  border: none;
+  color: gray;
+}
+
+.van-img {
+  border-radius: 5px;
+}
+
+.van-type_container {
+  position: relative;
+  bottom: 20px;
+}
+.van-type {
+  background-color: blue;
+  /* max-width: 70px; */
+  border-radius: 5px;
+  padding: 0.3rem 1rem;
+  display: inline-block !important;
+  color: white;
+}
