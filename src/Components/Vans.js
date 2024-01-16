@@ -5,8 +5,9 @@ import "../App.css";
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
   const [vansType, setVansType] = React.useState([]);
+  const [filteredVans, setFilteredVans] = React.useState([]);
+  const [isFilterOn, setIsFilterOn] = React.useState(false);
   //   to handle the error of not rendering the page before the array is fetched from data base
-  const [loading, setLoading] = React.useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -16,22 +17,23 @@ export default function Vans() {
         setVans(data.vans);
       } catch (error) {
         console.log(error);
-        setLoading(false);
       }
     };
     fetchData();
   }, []);
-  //   React.useEffect(() => {
-  console.log("vans are", vans);
-  let types = [];
-  if (vans.length > 1) {
-    types = Array.from(new Set(vans.map((van) => van.type)));
-    console.log("types", types);
-    // setVansType(types);
-  }
-
+  useEffect(() => {
+    const vansType = Array.from(new Set(vans.map((van) => van.type)));
+    setVansType(vansType);
+  }, [vans]);
+  // useEffect(() => {
+  //   function filterType(type) {
+  //     setFilteredVans(vans.filter((van) => van.type === type));
+  //   }
+  // }, [filteredVans]);
   function filterType(type) {
-    console.log("type filter is", type);
+    console.log("is filter on", isFilterOn);
+    setFilteredVans(vans.filter((van) => van.type === type));
+    console.log("filtervans are", filteredVans);
   }
   function getBackgroundColorClass(type) {
     switch (type) {
@@ -45,6 +47,7 @@ export default function Vans() {
         return "";
     }
   }
+  const vansToRender = isFilterOn ? filteredVans : vans;
   return (
     <div className="van">
       <div className="container">
@@ -52,20 +55,28 @@ export default function Vans() {
         <div className="d-flex  justify-content-between align-items-center mt-5">
           <div>
             <ul className="van-filter-li d-flex justify-content-start">
-              {types.map((item) => (
-                <li>
-                  <span className="van-type" onClick={() => filterType(item)}>
+              {vansType.map((item) => (
+                <li key={item}>
+                  <span
+                    className="van-type"
+                    onClick={() => {
+                      filterType(item);
+                      setIsFilterOn(true);
+                    }}
+                  >
                     {item}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-          <button className="clear-filter">Clear filter</button>
+          <button className="clear-filter" onClick={() => setIsFilterOn(false)}>
+            Clear filter
+          </button>
         </div>
 
         <ul className="row justify-content-center mt-5">
-          {vans.map((van) => (
+          {vansToRender.map((van) => (
             <li key={van.id} className="mt-1 van-card-li">
               <div className="van-card row ">
                 <div className="col-12 d-flex justify-content-center ">
