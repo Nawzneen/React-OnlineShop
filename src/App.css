@@ -184,7 +184,6 @@ p {
 /* //////////// */
 .about {
   background-color: #fff7ed;
-  /* height: 85vh; */
 }
 .img-container {
   position: relative;
@@ -205,6 +204,23 @@ p {
 .about-card {
   background-color: #ffcc8d;
   padding: 2rem;
+}
+/* .about {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+
+  align-items: center;
+} */
+
+.about-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.about-description {
+  max-width: 800px !important;
+  height: 100%;
 }
 .about .link-button {
   background-color: black;
@@ -256,6 +272,10 @@ ul {
 .van li {
   list-style-type: none;
 }
+.van-card a {
+  text-decoration: none;
+  color: black;
+}
 .van-card-li {
   width: 300px;
 }
@@ -281,4 +301,30 @@ ul {
   padding: 0.3rem 1rem;
   display: inline-block !important;
   color: white;
+}
+/* ---------------- */
+.vanDetails-container {
+  background-color: #fff7ed;
+}
+.vanDetails-container .container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  max-width: 600px;
+  text-align: left;
+}
+.vanDetails-container img {
+  width: 100%;
+}
+.vanDetails-container a {
+  color: black;
+}
+.vanDetails-container button {
+  background-color: #ff8c38;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
 }

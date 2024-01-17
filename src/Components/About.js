@@ -10,7 +10,7 @@ export default function About() {
         <img src={aboutPageImage} alt="About Page" className="about-img" />
       </div>
 
-      <div className="container mt-4">
+      <div className="container about-container  mt-4">
         <div className="about-description">
           <h3>Dont squeez in a Sedan when you can relax in a van</h3>
           <p>
