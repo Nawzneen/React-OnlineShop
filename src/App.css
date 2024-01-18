@@ -261,3 +261,11 @@ ul {
   color: white;
   font-weight: bold;
 }
+
+
+/* -----HOST---- */
+.host a {
+  text-decoration:none;
+  color: black;
+  padding-right: 50px;
+}
