@@ -1,16 +1,26 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../App.css";
 
 export default function Nav() {
   return (
-    <nav className="nav-container ">
-      #VANLIFE
-      <div className="nav-links">
-        <Link to="/Home">Home</Link>
-        <Link to="/About">About</Link>
-        <Link to="/Vans">Vans</Link>
-      </div>
-    </nav>
+    <header className="">
+      <nav className="nav-container container-float d-flex justify-content-between align-items-center ">
+        <Link className="text-logo" to="/Home">
+          #VANLIFE
+        </Link>
+        <div className="nav-links">
+          <Link to="/About" className="nav-links">
+            else
+          </Link>
+          <Link to="/About" className="nav-links">
+            About
+          </Link>
+          <Link to="/Vans" className="nav-links">
+            Vans
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 }
