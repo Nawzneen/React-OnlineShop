@@ -4,17 +4,15 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import "./index.css";
 import Home from "./Components/Home";
 import About from "./Components/About";
-import Vans from "./Components/Vans";
+import Vans from "./pages/Vans/Vans";
+import VanDetails from "./pages/Vans/VanDetails";
 import Layout from "./Components/Layout";
 import Dashboard from "./pages/Host/Dashboard.jsx";
 import Income from "./pages/Host/Income.jsx";
 import Reviews from "./pages/Host/Reviews.jsx";
 import HostLayout from "./pages/Host/HostLayout.jsx";
-
-
-
-
-import VanDetails from "./Components/VanDetails";
+import HostVans from "./pages/Host/HostVans.jsx";
+import HostVanDetails from "./pages/Host/HostVanDetails.jsx";
 
 import "./server";
 
@@ -23,15 +21,20 @@ function App() {
     <div className="app-container">
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout/>}>
-            <Route path="/home" element={<Home />} />
+          <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/vans" element={<Vans />} />
-            <Route path="/vans/:id" element={<VanDetails />}></Route>
-            <Route path="/host" element={<HostLayout />}>
-                <Route path="/host/income" element={<Income />} />
-                <Route path="/host/reviews" element={<Reviews />} />    
+            <Route path="about" element={<About />} />
+            <Route path="vans">
+              <Route index element={<Vans />} />
+              <Route path=":id" element={<VanDetails />} />
+            </Route>
+            <Route path="host" element={<HostLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="vans" element={<HostVans />} />
+              <Route path="vans/:id" element={<HostVanDetails />} />
+
+              <Route path="income" element={<Income />} />
+              <Route path="reviews" element={<Reviews />} />
             </Route>
           </Route>
         </Routes>

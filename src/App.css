@@ -262,10 +262,15 @@ ul {
   font-weight: bold;
 }
 
-
 /* -----HOST---- */
 .host a {
-  text-decoration:none;
+  text-decoration: none;
   color: black;
   padding-right: 50px;
+}
+.host-layout {
+  background-color: var(--primary-color);
+}
+.hostVans {
+  background-color: var(--primary-color);
 }

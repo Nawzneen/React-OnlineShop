@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "../server";
+// import "../server";
 import { ArrowLeft } from "react-bootstrap-icons";
 import classNames from 'classnames'
 
