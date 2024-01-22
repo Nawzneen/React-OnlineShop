@@ -11,7 +11,7 @@ export default function HostLayout() {
   return (
     <div className="host-layout">
       <div className="container mt-4">
-        <nav className="host">
+        <nav className="host mb-4">
           <NavLink
             style={({ isActive }) => (isActive ? activeStyle : null)}
             to="/Host"

@@ -274,3 +274,7 @@ ul {
 .hostVans {
   background-color: var(--primary-color);
 }
+.hostVans a {
+  text-decoration: none;
+  color: black;
+}

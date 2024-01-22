@@ -15,7 +15,6 @@ export default function Vans() {
         <Link
           to={`${van.id}`}
           aria-label={`more description of the ${van.name} with the price of ${van.price}`}
-          van={van}
         >
           <div className="col-12 d-flex justify-content-center ">
             <img
