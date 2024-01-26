@@ -20,17 +20,14 @@ export default function HostVans() {
   return (
     <div className="hostVans">
       <h2>Your Listed Vans</h2>
-      <ul className="row justify-content-between">
+      <ul className="row gx-5 gy-4 justify-content-between">
         {hostVans.map((van) => (
           <Link
+            className="col-md-6 col-12  "
             to={`${van.id}`}
             aria-label={`more description of the ${van.name} with the price of ${van.price}`}
           >
-            <li
-              className="row col-md-6 col-12 mt-4 "
-              style={liStyle}
-              key={van.id}
-            >
+            <li className="row  " style={liStyle} key={van.id}>
               <img
                 src={van.imageUrl}
                 alt={van.name}
