@@ -82,7 +82,7 @@ export default function Vans() {
   }
   const vansToRender = isFilterOn ? filteredVans : vans;
   return (
-    <div className="van">
+    <div className="van-section">
       <div className="container">
         <h2 className="fw-bold mt-5 ">Explore our van options</h2>
         <div className="d-flex  justify-content-between align-items-center mt-5">

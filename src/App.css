@@ -170,6 +170,10 @@ p {
   justify-content: space-between;
 } */
 /* Vans */
+.van-section {
+  display: flex;
+  flex: 1 0 auto;
+}
 .van-card img {
   /* width: 300px; */
   max-width: 100%;
@@ -202,7 +206,7 @@ ul {
 .van-filter-li li .van-type:hover {
   background-color: #925710 !important;
 }
-.van li {
+.van-section li {
   list-style-type: none;
 }
 .van-card a {
