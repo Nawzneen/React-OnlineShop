@@ -8,7 +8,7 @@ export default function HostVanDetail() {
   React.useEffect(() => {
     fetch(`/api/host/vans/${id}`)
       .then((res) => res.json())
-      .then((data) => setCurrentVan(data.vans));
+      .then((data) => setCurrentVan(data.vans[0]));
   }, []);
 
   if (!currentVan) {
@@ -22,7 +22,7 @@ export default function HostVanDetail() {
 
       <div className="host-van-detail-layout-container">
         <div className="host-van-detail">
-          <img src={currentVan.imageUrl} />
+          <img src={currentVan.imageUrl} alt={currentVan.name} />
           <div className="host-van-detail-info-text">
             <i className={`van-type van-type-${currentVan.type}`}>
               {currentVan.type}
