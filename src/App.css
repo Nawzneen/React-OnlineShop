@@ -197,18 +197,19 @@ ul {
 }
 .van-filter-li li {
   margin-right: 1rem;
-  background-color: #ffcc8d !important;
   border-radius: 5px;
-  cursor: pointer;
 }
-.van-filter-li li .van-type {
+.filter-van-type {
+  cursor: pointer;
   background-color: var(--primary-color);
   color: black;
   text-transform: capitalize;
   border-radius: 5px;
+  padding: 0.3rem 1rem;
 }
-.van-filter-li li .van-type:hover {
-  background-color: #925710 !important;
+.filter-van-type:hover {
+  background-color: var(--secondary-color);
+  color: white;
 }
 
 .van-card a {

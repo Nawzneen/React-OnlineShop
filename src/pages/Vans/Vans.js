@@ -41,7 +41,6 @@ export default function Vans() {
           <TypeBtn van={van} /> <span className=" ">/Day</span>
         </div>
       </Link>
-      {/* </div> */}
     </li>
   ));
 
@@ -72,18 +71,7 @@ export default function Vans() {
     setFilteredVans(vans.filter((van) => van.type === type));
     console.log("filtervans are", filteredVans);
   }
-  function getBackgroundColorClass(type) {
-    switch (type) {
-      case "simple":
-        return "bg-simple";
-      case "luxury":
-        return "bg-luxury";
-      case "rugged":
-        return "bg-rugged";
-      default:
-        return "";
-    }
-  }
+
   const vansToRender = isFilterOn ? filteredVans : vans;
   return (
     <div className="van-section">
@@ -95,7 +83,7 @@ export default function Vans() {
               {vansType.map((item) => (
                 <li key={item}>
                   <span
-                    className="van-type"
+                    className="filter-van-type"
                     onClick={() => {
                       filterType(item);
                       setIsFilterOn(true);
