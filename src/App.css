@@ -237,13 +237,18 @@ ul {
 .vanDetails-container {
   background-color: var(--primary-color);
 }
-.vanDetails-container .container {
+.vanDetails-container > a {
+  box-sizing: border-box;
+}
+.vanDetails-container .vanDetail-card {
+  max-width: 700px;
+  margin: auto;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
   /* align-items: center; */
-  max-width: 600px;
-  text-align: left;
+  /* max-width: 600px; */
+  /* text-align: left; */
 }
 .vanDetails-container img {
   width: 100%;
@@ -284,6 +289,7 @@ ul {
   background-color: white;
   padding: 24px;
   margin: 30px 26px;
+
   /* flex: 1 0 auto; */
 }
 
