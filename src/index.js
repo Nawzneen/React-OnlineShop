@@ -15,7 +15,7 @@ import HostVans from "./pages/Host/HostVans.jsx";
 import HostVanDetails from "./pages/Host/HostVanDetails.jsx";
 import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
 import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
-import HostVanPricing from "./pages/Host/HostVanPhotos.jsx";
+import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
 
 import "./server";
 

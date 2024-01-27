@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Link, Outlet, NavLink } from "react-router-dom";
-
+import TypeBtn from "../../Components/Button/TypeBtn";
 export default function HostVanDetail() {
   const { id } = useParams();
   const [currentVan, setCurrentVan] = React.useState(null);
@@ -29,9 +29,8 @@ export default function HostVanDetail() {
         <div className="host-van-detail ">
           <img src={currentVan.imageUrl} alt={currentVan.name} />
           <div className="host-van-detail-info-text">
-            <i className={`van-type van-type-${currentVan.type}`}>
-              {currentVan.type}
-            </i>
+            <TypeBtn van={currentVan} />
+
             <h3>{currentVan.name}</h3>
             <h4>${currentVan.price}/day</h4>
           </div>
@@ -61,7 +60,7 @@ export default function HostVanDetail() {
           </NavLink>
         </div>
 
-        <Outlet />
+        <Outlet context={{ currentVan: currentVan }} />
       </div>
     </section>
   );

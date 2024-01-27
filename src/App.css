@@ -215,9 +215,12 @@ ul {
   text-decoration: none;
   color: black;
 }
-.van-card-li {
-  width: 300px;
+@media (max-width: 600px) {
+  .van-card {
+    padding: 0 3rem;
+  }
 }
+
 .clear-filter {
   background-color: transparent;
   text-decoration: underline;
@@ -229,18 +232,6 @@ ul {
   border-radius: 5px;
 }
 
-.van-type_container {
-  position: relative;
-  bottom: 20px;
-}
-.van-type {
-  /* background-color: blue; */
-  /* max-width: 70px; */
-  border-radius: 5px;
-  padding: 0.3rem 1rem;
-  display: inline-block !important;
-  color: white;
-}
 /* ---------------- */
 .vanDetails-container {
   background-color: var(--primary-color);
@@ -276,11 +267,13 @@ ul {
 }
 .host-layout {
   background-color: var(--primary-color);
+  flex: 1;
 }
-.hostVans {
+.hostVans-section {
   background-color: var(--primary-color);
+  height: 100%;
 }
-.hostVans a {
+.hostVans-section a {
   text-decoration: none;
   color: black;
 }
