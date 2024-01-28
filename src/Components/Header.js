@@ -14,8 +14,9 @@ export default function Header() {
         <nav className="nav-container container-float d-flex justify-content-between align-items-center ">
           <NavLink
             className="text-logo"
-            to="/Home"
-            style={({ isActive }) => (isActive ? activeStyle : null)}
+            to="/"
+            end
+            // style={({ isActive }) => (isActive ? activeStyle : null)}
           >
             #VANLIFE
           </NavLink>
