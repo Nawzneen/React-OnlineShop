@@ -55,7 +55,9 @@ export default function VanDetails(props) {
         <span className="ms-4 p-2">
           <ArrowLeft />
         </span>
-        Back to all vans
+        {location.state.search
+          ? `Back to ${location.state.search.split("=")[1]} Vans `
+          : "Back to all Vans"}
       </Link>
       {van ? (
         <div className="vanDetail-card    mt-4 mb-5">
