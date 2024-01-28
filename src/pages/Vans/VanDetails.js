@@ -3,21 +3,12 @@ import { useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 // import "../server";
 import { ArrowLeft } from "react-bootstrap-icons";
-import classNames from "classnames";
 import TypeBtn from "../../Components/Button/TypeBtn";
 export default function VanDetails(props) {
   const params = useParams();
   const [van, setVan] = useState(null);
   console.log(params);
   console.log(props);
-
-  function getBackgroundColorClass(type) {
-    return classNames({
-      "bg-simple": type === "simple",
-      "bg-luxury": type === "luxury",
-      "bg-rugged": type === "rugged",
-    });
-  }
 
   // function getBackgroundColorClass(type) {
   //   switch (type) {
