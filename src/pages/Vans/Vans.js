@@ -64,6 +64,17 @@ export default function Vans() {
     setVansType(Array.from(new Set(vans.map((van) => van.type))));
   }, [vans]);
 
+  function handleFilterChange(key, value) {
+    setSearchParams((prevParams) => {
+      if (!value) {
+        prevParams.delete(key);
+      } else {
+        prevParams.set(key, value);
+      }
+      return prevParams;
+    });
+  }
+
   return (
     <div className="van-section">
       <div className="container">
@@ -79,7 +90,8 @@ export default function Vans() {
                   <span
                     className="filter-van-type"
                     onClick={() => {
-                      setSearchParams({ type: vansType });
+                      handleFilterChange("type", vansType);
+                      // setSearchParams({ type: vansType });
                     }}
                   >
                     {vansType}
