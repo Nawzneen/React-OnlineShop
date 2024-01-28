@@ -100,9 +100,14 @@ export default function Vans() {
               ))}
             </ul>
           </div>
-          <button className="clear-filter" onClick={() => setSearchParams({})}>
-            Clear filter
-          </button>
+          {typeFilter ? (
+            <button
+              className="clear-filter"
+              onClick={() => setSearchParams({})}
+            >
+              Clear filter
+            </button>
+          ) : null}
         </div>
 
         <ul className="row mt-3 mb-5 gy-5">{vansElement}</ul>
