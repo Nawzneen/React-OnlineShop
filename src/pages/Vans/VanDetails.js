@@ -1,13 +1,15 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import "../server";
+
 import { ArrowLeft } from "react-bootstrap-icons";
 import TypeBtn from "../../Components/Button/TypeBtn";
 export default function VanDetails(props) {
   const params = useParams();
+  const location = useLocation();
+
+  console.log("location is", location);
   const [van, setVan] = useState(null);
-  console.log(params);
   console.log(props);
 
   // function getBackgroundColorClass(type) {
@@ -44,7 +46,9 @@ export default function VanDetails(props) {
     // <div className="container">
     <div className="vanDetails-container  flex-grow-1 pt-4 ">
       <Link
-        to="/vans"
+        to={location.state.search ? `..?${location.state.search}` : ".."}
+        // to= '../${location.search}'
+        relative="path"
         aria-label={`Going back to the Vans page`}
         className="back-btn  "
       >
