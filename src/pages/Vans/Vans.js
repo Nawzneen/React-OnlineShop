@@ -85,16 +85,20 @@ export default function Vans() {
           van-filter-container"
           >
             <ul className="van-filter-li d-flex justify-content-start">
-              {vansTypes.map((vansType) => (
-                <li key={vansType}>
+              {vansTypes.map((vanType) => (
+                <li key={vanType}>
                   <span
-                    className="filter-van-type"
+                    className={
+                      typeFilter === vanType
+                        ? `filter-van-type bg-${vanType}`
+                        : "filter-van-type"
+                    }
                     onClick={() => {
-                      handleFilterChange("type", vansType);
+                      handleFilterChange("type", vanType);
                       // setSearchParams({ type: vansType });
                     }}
                   >
-                    {vansType}
+                    {vanType}
                   </span>
                 </li>
               ))}
