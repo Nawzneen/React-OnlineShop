@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
 // import "../App.css";
 
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
-  const [vansType, setVansType] = React.useState([]);
-  const [filteredVans, setFilteredVans] = React.useState([]);
-  const [isFilterOn, setIsFilterOn] = React.useState(false);
+  const [vansTypes, setVansType] = React.useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const typeFilter = searchParams.get("type");
+  const displayedVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
   //   to handle the error of not rendering the page before the array is fetched from data base
 
-  const vansElement = vans.map((van) => (
+  const vansElement = displayedVans.map((van) => (
     <li
       key={van.id}
       className="col-sm-6 col-md-4 col-lg-3  van-card "
@@ -58,44 +61,34 @@ export default function Vans() {
     fetchData();
   }, []);
   useEffect(() => {
-    const vansType = Array.from(new Set(vans.map((van) => van.type)));
-    setVansType(vansType);
+    setVansType(Array.from(new Set(vans.map((van) => van.type))));
   }, [vans]);
-  // useEffect(() => {
-  //   function filterType(type) {
-  //     setFilteredVans(vans.filter((van) => van.type === type));
-  //   }
-  // }, [filteredVans]);
-  function filterType(type) {
-    console.log("is filter on", isFilterOn);
-    setFilteredVans(vans.filter((van) => van.type === type));
-    console.log("filtervans are", filteredVans);
-  }
 
-  const vansToRender = isFilterOn ? filteredVans : vans;
   return (
     <div className="van-section">
       <div className="container">
         <h2 className="fw-bold mt-5 ">Explore our van options</h2>
         <div className="d-flex  justify-content-between align-items-center mt-5">
-          <div>
+          <div
+            className="
+          van-filter-container"
+          >
             <ul className="van-filter-li d-flex justify-content-start">
-              {vansType.map((item) => (
-                <li key={item}>
+              {vansTypes.map((vansType) => (
+                <li key={vansType}>
                   <span
                     className="filter-van-type"
                     onClick={() => {
-                      filterType(item);
-                      setIsFilterOn(true);
+                      setSearchParams({ type: vansType });
                     }}
                   >
-                    {item}
+                    {vansType}
                   </span>
                 </li>
               ))}
             </ul>
           </div>
-          <button className="clear-filter" onClick={() => setIsFilterOn(false)}>
+          <button className="clear-filter" onClick={() => setSearchParams({})}>
             Clear filter
           </button>
         </div>

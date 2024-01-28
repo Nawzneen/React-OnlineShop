@@ -50,7 +50,8 @@ export default function VanDetails(props) {
   }, [params.id]);
 
   return (
-    <div className="  vanDetails-container  flex-grow-1 pt-4 ">
+    // <div className="container">
+    <div className="vanDetails-container  flex-grow-1 pt-4 ">
       <Link
         to="/vans"
         aria-label={`Going back to the Vans page`}
@@ -67,7 +68,6 @@ export default function VanDetails(props) {
             <img
               src={van.imageUrl}
               alt={van.name}
-              // style={{ maxWidth: "500px", margin: "auto" }}
               style={{ width: "100%" }}
               className="mt-4 mb-4"
             />
@@ -82,5 +82,6 @@ export default function VanDetails(props) {
         <h3 className="mt-5 mb-5">Loading...</h3>
       )}
     </div>
+    // </div>
   );
 }
