@@ -28,10 +28,15 @@ function App() {
             <Route
               path="*"
               element={
-                <h1 className="page-not-found ">
-                  Page, not found! Sorry the page you are looking for is not
-                  available
-                </h1>
+                <div className="page-not-found ">
+                  <h1>
+                    Page not found! <br /> Sorry the page you are looking for is
+                    not available!
+                  </h1>
+                  <Link to="/">
+                    <button className="mt-5 ">Return to home</button>
+                  </Link>
+                </div>
               }
             />
             <Route index end element={<Home />} />
