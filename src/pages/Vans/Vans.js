@@ -41,7 +41,7 @@ export default function Vans() {
             {/* <span className="d-inline-block">/Day</span> */}
           </div>
         </div>
-        <div className="col-12 d-flex  justify-content-between">
+        <div className="col-12 d-flex  justify-content-between mt-2">
           <TypeBtn van={van} /> <span className=" ">/Day</span>
         </div>
       </Link>
