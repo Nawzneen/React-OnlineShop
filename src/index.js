@@ -24,7 +24,16 @@ function App() {
     <div className="app-container">
       <BrowserRouter>
         <Routes>
-          <Route element={<Layout />}>
+          <Route path="/" element={<Layout />}>
+            <Route
+              path="*"
+              element={
+                <h1 className="page-not-found ">
+                  Page, not found! Sorry the page you are looking for is not
+                  available
+                </h1>
+              }
+            />
             <Route index end element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="vans">

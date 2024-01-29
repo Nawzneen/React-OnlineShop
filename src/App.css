@@ -20,6 +20,13 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+.page-not-found {
+  background-color: var(--primary-color);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 h1,
 h2,
 h3 {
