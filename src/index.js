@@ -16,6 +16,7 @@ import HostVanDetails from "./pages/Host/HostVanDetails.jsx";
 import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
 import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
 import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 import "./server";
 
@@ -25,20 +26,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route
-              path="*"
-              element={
-                <div className="page-not-found ">
-                  <h1>
-                    Page not found! <br /> Sorry the page you are looking for is
-                    not available!
-                  </h1>
-                  <Link to="/">
-                    <button className="mt-5 ">Return to home</button>
-                  </Link>
-                </div>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
             <Route index end element={<Home />} />
             <Route path="about" element={<About />} />
             <Route path="vans">
