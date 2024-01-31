@@ -1,69 +1,92 @@
 import React, { useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
+import { getVans } from "../apis";
 // import "../App.css";
 
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
   const [vansTypes, setVansType] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [loading, setLoading] = React.useState([]);
+  const [error, setError] = React.useState([]);
+
+  useEffect(() => {
+    async function loadVans() {
+      setLoading(true);
+      try {
+        const data = await getVans();
+        setVans(data);
+      } catch (err) {
+        console.log(err);
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    // const fetchData = async () => {
+    //   try {
+    //     const response = await fetch("/api/vans");
+    //     const data = await response.json();
+    //     console.log(data.vans); // Check the structure of the data
+    //     setVans(data.vans);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // };
+    // fetchData();
+    // const fetchData = async () => {
+    //   const data = await getVans();
+    //   console.log("data iss", data);
+    //   setVans(data);
+    // };
+    loadVans();
+  }, []);
+  useEffect(() => {
+    if (vans) {
+      setVansType(Array.from(new Set(vans.map((van) => van.type))));
+    }
+  }, [vans]);
   const typeFilter = searchParams.get("type");
   const displayedVans = typeFilter
     ? vans.filter((van) => van.type === typeFilter)
     : vans;
   //   to handle the error of not rendering the page before the array is fetched from data base
 
-  const vansElement = displayedVans.map((van) => (
-    <li
-      key={van.id}
-      className="col-sm-6 col-md-4 col-lg-3  van-card "
-      // style={{ maxHeight: "300px", maxWidth: "auto" }}
-    >
-      {/* <div className="van-card  "> */}
-      <Link
-        to={van.id}
-        state={{ search: searchParams.toString() }}
-        aria-label={`more description of the ${van.name} with the price of ${van.price}`}
-        className=""
-      >
-        <div className="col-12 d-flex justify-content-center ">
-          <img
-            className="van-img"
-            src={van.imageUrl}
-            alt={`images of the ${van.name}`}
-            style={{}}
-          />
-        </div>
-        <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
-          <span className="fw-bold">{van.name}</span>
-          <div className="d-flex align-items-end">
-            <span className="fw-bold">{van.price}$</span>
-            {/* <span className="d-inline-block">/Day</span> */}
-          </div>
-        </div>
-        <div className="col-12 d-flex  justify-content-between mt-2">
-          <TypeBtn van={van} /> <span className=" ">/Day</span>
-        </div>
-      </Link>
-    </li>
-  ));
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/vans");
-        const data = await response.json();
-        console.log(data.vans); // Check the structure of the data
-        setVans(data.vans);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-  useEffect(() => {
-    setVansType(Array.from(new Set(vans.map((van) => van.type))));
-  }, [vans]);
+  // const vansElement = displayedVans.map((van) => (
+  //   <li
+  //     key={van.id}
+  //     className="col-sm-6 col-md-4 col-lg-3  van-card "
+  //     // style={{ maxHeight: "300px", maxWidth: "auto" }}
+  //   >
+  //     {/* <div className="van-card  "> */}
+  //     <Link
+  //       to={van.id}
+  //       state={{ search: searchParams.toString() }}
+  //       aria-label={`more description of the ${van.name} with the price of ${van.price}`}
+  //       className=""
+  //     >
+  //       <div className="col-12 d-flex justify-content-center ">
+  //         <img
+  //           className="van-img"
+  //           src={van.imageUrl}
+  //           alt={`images of the ${van.name}`}
+  //           style={{}}
+  //         />
+  //       </div>
+  //       <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
+  //         <span className="fw-bold">{van.name}</span>
+  //         <div className="d-flex align-items-end">
+  //           <span className="fw-bold">{van.price}$</span>
+  //           {/* <span className="d-inline-block">/Day</span> */}
+  //         </div>
+  //       </div>
+  //       <div className="col-12 d-flex  justify-content-between mt-2">
+  //         <TypeBtn van={van} /> <span className=" ">/Day</span>
+  //       </div>
+  //     </Link>
+  //   </li>
+  // ));
 
   function handleFilterChange(key, value) {
     setSearchParams((prevParams) => {
@@ -74,6 +97,13 @@ export default function Vans() {
       }
       return prevParams;
     });
+  }
+
+  if (loading) {
+    return <h1 className="loading">Loading...</h1>;
+  }
+  if (error) {
+    return <h1 className="error">{`There was an error: ${error.message}`}</h1>;
   }
 
   return (
@@ -115,7 +145,42 @@ export default function Vans() {
           ) : null}
         </div>
 
-        <ul className="row mt-3 mb-5 gy-5">{vansElement}</ul>
+        <ul className="row mt-3 mb-5 gy-5">
+          {displayedVans.map((van) => (
+            <li
+              key={van.id}
+              className="col-sm-6 col-md-4 col-lg-3  van-card "
+              // style={{ maxHeight: "300px", maxWidth: "auto" }}
+            >
+              {/* <div className="van-card  "> */}
+              <Link
+                to={van.id}
+                state={{ search: searchParams.toString() }}
+                aria-label={`more description of the ${van.name} with the price of ${van.price}`}
+                className=""
+              >
+                <div className="col-12 d-flex justify-content-center ">
+                  <img
+                    className="van-img"
+                    src={van.imageUrl}
+                    alt={`images of the ${van.name}`}
+                    style={{}}
+                  />
+                </div>
+                <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
+                  <span className="fw-bold">{van.name}</span>
+                  <div className="d-flex align-items-end">
+                    <span className="fw-bold">{van.price}$</span>
+                    {/* <span className="d-inline-block">/Day</span> */}
+                  </div>
+                </div>
+                <div className="col-12 d-flex  justify-content-between mt-2">
+                  <TypeBtn van={van} /> <span className=" ">/Day</span>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
