@@ -4,14 +4,14 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  Routes,
   Route,
-  Link,
 } from "react-router-dom";
 import "./index.css";
 import Home from "./Components/Home";
 import About from "./Components/About";
-import Vans from "./pages/Vans/Vans";
+import Error from "./Components/Error";
+
+import Vans, { loader as vansLoader } from "./pages/Vans/Vans";
 import VanDetails from "./pages/Vans/VanDetails";
 import Layout from "./Components/Layout";
 import Dashboard from "./pages/Host/Dashboard.jsx";
@@ -35,7 +35,12 @@ function App() {
         <Route index end element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="vans">
-          <Route index element={<Vans />} />
+          <Route
+            index
+            element={<Vans />}
+            loader={vansLoader}
+            errorElement={<Error />}
+          />
           <Route path=":id" element={<VanDetails />} />
         </Route>
         <Route path="host" element={<HostLayout />}>

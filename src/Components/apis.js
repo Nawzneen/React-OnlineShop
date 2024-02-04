@@ -23,27 +23,29 @@ export async function getVans() {
   if (!res.ok) {
     console.log("res is", res);
 
-    const error = new Error("Failed to fetch vans");
-    error.statusText = res.statusText;
-    error.status = res.status;
-
-    throw error;
+    throw {
+      message: "Failed to fetch vans",
+      statusText: res.statusText,
+      status: res.status,
+    };
   }
 
   const data = await res.json();
 
-  if (data && data.error) {
-    // If the server response contains an error field, throw an error with the server's error message
-    const serverError = new Error(`Server Error: ${data.error}`);
-    serverError.responseData = data; // Attach the actual response for debugging
-    throw serverError;
-  }
+  // if (data && data.error) {
+  //   // If the server response contains an error field, throw an error with the server's error message
+  //   const serverError = new Error(`Server Error: ${data.error}`);
+  //   serverError.responseData = data; // Attach the actual response for debugging
+  //   throw serverError;
+  // }
 
   if (!data || !data.vans) {
-    // If the response does not contain the expected structure, throw an error
-    const formatError = new Error("Invalid response format");
-    formatError.responseData = data; // Attach the actual response for debugging
-    throw formatError;
+    throw {
+      message: "Failed to fetch vans",
+      statusText: res.statusText,
+      status: res.status,
+      originalRes: res,
+    };
   }
 
   return data.vans;

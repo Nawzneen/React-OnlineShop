@@ -1,49 +1,41 @@
 import React, { useEffect } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import {
+  useSearchParams,
+  Link,
+  useLoaderData,
+  useRouteLoaderData,
+} from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
 import { getVans } from "../../Components/apis";
 // import "../App.css";
+export function loader() {
+  return getVans();
+}
 
 export default function Vans() {
-  const [vans, setVans] = React.useState([]);
+  // const [vans, setVans] = React.useState([]);
   const [vansTypes, setVansType] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState(null);
-
-  useEffect(() => {
-    async function loadVans() {
-      setLoading(true);
-      try {
-        const data = await getVans();
-        console.log("Data is", data);
-        setVans(data);
-      } catch (err) {
-        console.log("there was an error", err.message);
-        setError(err);
-      } finally {
-        setLoading(false);
-        console.log("End of loadVans");
-      }
-    }
-    // const fetchData = async () => {
-    //   try {
-    //     const response = await fetch("/api/vans");
-    //     const data = await response.json();
-    //     console.log(data.vans); // Check the structure of the data
-    //     setVans(data.vans);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // };
-    // fetchData();
-    // const fetchData = async () => {
-    //   const data = await getVans();
-    //   console.log("data iss", data);
-    //   setVans(data);
-    // };
-    loadVans();
-  }, []);
+  // const [loading, setLoading] = React.useState(false);
+  // const [error, setError] = React.useState(null);
+  const vans = useLoaderData();
+  // console.log(data);
+  // useEffect(() => {
+  //   async function loadVans() {
+  //     setLoading(true);
+  //     try {
+  //       const data = await getVans();
+  //       setVans(data);
+  //     } catch (err) {
+  //       console.log("there was an error", err.message);
+  //       setError(err);
+  //     } finally {
+  //       setLoading(false);
+  //       console.log("End of loadVans");
+  //     }
+  //   }
+  //   loadVans();
+  // }, []);
   useEffect(() => {
     if (vans) {
       setVansType(Array.from(new Set(vans.map((van) => van.type))));
@@ -98,22 +90,22 @@ export default function Vans() {
     });
   }
 
-  if (loading) {
-    return (
-      <h1 aria-live="polite" className="flex-grow-1 loading">
-        Loading...
-      </h1>
-    );
-  }
-  if (error) {
-    console.log("error is", error);
-    return (
-      <h1
-        aria-live="assertive"
-        className="error flex-grow-1"
-      >{`There was an error: ${error.message}`}</h1>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <h1 aria-live="polite" className="flex-grow-1 loading">
+  //       Loading...
+  //     </h1>
+  //   );
+  // }
+  // if (error) {
+  //   console.log("error is", error);
+  //   return (
+  //     <h1
+  //       aria-live="assertive"
+  //       className="error flex-grow-1"
+  //     >{`There was an error: ${error.message}`}</h1>
+  //   );
+  // }
   const typeFilter = searchParams.get("type");
 
   const displayedVans = typeFilter
