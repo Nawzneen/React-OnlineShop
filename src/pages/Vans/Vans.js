@@ -99,12 +99,19 @@ export default function Vans() {
   }
 
   if (loading) {
-    return <h1 className="flex-grow-1 loading">Loading...</h1>;
+    return (
+      <h1 aria-live="polite" className="flex-grow-1 loading">
+        Loading...
+      </h1>
+    );
   }
   if (error) {
     console.log("error is", error);
     return (
-      <h1 className="error flex-grow-1">{`There was an error: ${error.message}`}</h1>
+      <h1
+        aria-live="assertive"
+        className="error flex-grow-1"
+      >{`There was an error: ${error.message}`}</h1>
     );
   }
   const typeFilter = searchParams.get("type");
