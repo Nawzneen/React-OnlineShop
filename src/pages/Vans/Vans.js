@@ -1,27 +1,29 @@
 import React, { useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
-import { getVans } from "../apis";
+import { getVans } from "../../Components/apis";
 // import "../App.css";
 
 export default function Vans() {
   const [vans, setVans] = React.useState([]);
   const [vansTypes, setVansType] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [loading, setLoading] = React.useState([]);
-  const [error, setError] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   useEffect(() => {
     async function loadVans() {
       setLoading(true);
       try {
         const data = await getVans();
+        console.log("Data is", data);
         setVans(data);
       } catch (err) {
-        console.log(err);
+        console.log("there was an error", err.message);
         setError(err);
       } finally {
         setLoading(false);
+        console.log("End of loadVans");
       }
     }
     // const fetchData = async () => {
@@ -47,10 +49,7 @@ export default function Vans() {
       setVansType(Array.from(new Set(vans.map((van) => van.type))));
     }
   }, [vans]);
-  const typeFilter = searchParams.get("type");
-  const displayedVans = typeFilter
-    ? vans.filter((van) => van.type === typeFilter)
-    : vans;
+
   //   to handle the error of not rendering the page before the array is fetched from data base
 
   // const vansElement = displayedVans.map((van) => (
@@ -100,12 +99,20 @@ export default function Vans() {
   }
 
   if (loading) {
-    return <h1 className="loading">Loading...</h1>;
+    return <h1 className="flex-grow-1 loading">Loading...</h1>;
   }
   if (error) {
-    return <h1 className="error">{`There was an error: ${error.message}`}</h1>;
+    console.log("error is", error);
+    return (
+      <h1 className="error flex-grow-1">{`There was an error: ${error.message}`}</h1>
+    );
   }
+  const typeFilter = searchParams.get("type");
 
+  const displayedVans = typeFilter
+    ? vans.filter((van) => van.type === typeFilter)
+    : vans;
+  console.log("displaye vans", displayedVans);
   return (
     <div className="van-section">
       <div className="container">
@@ -146,40 +153,41 @@ export default function Vans() {
         </div>
 
         <ul className="row mt-3 mb-5 gy-5">
-          {displayedVans.map((van) => (
-            <li
-              key={van.id}
-              className="col-sm-6 col-md-4 col-lg-3  van-card "
-              // style={{ maxHeight: "300px", maxWidth: "auto" }}
-            >
-              {/* <div className="van-card  "> */}
-              <Link
-                to={van.id}
-                state={{ search: searchParams.toString() }}
-                aria-label={`more description of the ${van.name} with the price of ${van.price}`}
-                className=""
+          {displayedVans &&
+            displayedVans.map((van) => (
+              <li
+                key={van.id}
+                className="col-sm-6 col-md-4 col-lg-3  van-card "
+                // style={{ maxHeight: "300px", maxWidth: "auto" }}
               >
-                <div className="col-12 d-flex justify-content-center ">
-                  <img
-                    className="van-img"
-                    src={van.imageUrl}
-                    alt={`images of the ${van.name}`}
-                    style={{}}
-                  />
-                </div>
-                <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
-                  <span className="fw-bold">{van.name}</span>
-                  <div className="d-flex align-items-end">
-                    <span className="fw-bold">{van.price}$</span>
-                    {/* <span className="d-inline-block">/Day</span> */}
+                {/* <div className="van-card  "> */}
+                <Link
+                  to={van.id}
+                  state={{ search: searchParams.toString() }}
+                  aria-label={`more description of the ${van.name} with the price of ${van.price}`}
+                  className=""
+                >
+                  <div className="col-12 d-flex justify-content-center ">
+                    <img
+                      className="van-img"
+                      src={van.imageUrl}
+                      alt={`images of the ${van.name}`}
+                      style={{}}
+                    />
                   </div>
-                </div>
-                <div className="col-12 d-flex  justify-content-between mt-2">
-                  <TypeBtn van={van} /> <span className=" ">/Day</span>
-                </div>
-              </Link>
-            </li>
-          ))}
+                  <div className="col-12 mt-1 d-flex justify-content-between van-name-price_container">
+                    <span className="fw-bold">{van.name}</span>
+                    <div className="d-flex align-items-end">
+                      <span className="fw-bold">{van.price}$</span>
+                      {/* <span className="d-inline-block">/Day</span> */}
+                    </div>
+                  </div>
+                  <div className="col-12 d-flex  justify-content-between mt-2">
+                    <TypeBtn van={van} /> <span className=" ">/Day</span>
+                  </div>
+                </Link>
+              </li>
+            ))}
         </ul>
       </div>
     </div>
