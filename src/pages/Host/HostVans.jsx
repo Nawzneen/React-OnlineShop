@@ -1,7 +1,10 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-import { getHostVans } from "../../Components/apis";
-export function loader() {
+import { getHostVans } from "../../apis";
+import { requireAuth } from "../../utils";
+
+export async function loader() {
+  await requireAuth();
   return getHostVans();
 }
 export default function HostVans() {
@@ -9,17 +12,7 @@ export default function HostVans() {
     backgroundColor: "white",
     padding: "15px",
   };
-  // const [hostVans, setHostVans] = React.useState([]);
   const hostVans = useLoaderData();
-  const hostId = "123";
-  // React.useEffect(() => {
-  //   fetch(`/api/host/vans?hostId=${hostId}`)
-  //     .then((response) => response.json())
-  //     .then((data) => setHostVans(data.vans))
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
 
   return (
     <div className="hostVans-section">
@@ -43,7 +36,6 @@ export default function HostVans() {
                 className="col-3 col-md-4"
                 style={{
                   maxWidth: "300px",
-                  // overflow: "auto",
                 }}
               />
               <div className="van-info col-6 ms-4">

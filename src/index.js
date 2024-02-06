@@ -27,6 +27,7 @@ import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
 import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
 import NotFound from "./pages/NotFound.jsx";
 import Login from "./pages/Login";
+import { requireAuth } from "./utils.js";
 
 import "./server";
 
@@ -36,7 +37,6 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route path="*" element={<NotFound />} />
         <Route path="login" element={<Login />} />
-
         <Route index end element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="vans">
@@ -58,14 +58,14 @@ function App() {
             index
             element={<Dashboard />}
             loader={async () => {
-              return null;
+              return await requireAuth();
             }}
           />
           <Route
             path="vans"
             element={<HostVans />}
             loader={vansHostLoader}
-            errorElement={<Error />}
+            // errorElement={<Error />}
           />
           <Route
             path="vans/:id"
@@ -76,21 +76,21 @@ function App() {
               index
               element={<HostVanInfo />}
               loader={async () => {
-                return null;
+                return await requireAuth();
               }}
             />
             <Route
               path="pricing"
               element={<HostVanPricing />}
               loader={async () => {
-                return null;
+                return await requireAuth();
               }}
             />
             <Route
               path="photos"
               element={<HostVanPhotos />}
               loader={async () => {
-                return null;
+                return await requireAuth();
               }}
             />
           </Route>

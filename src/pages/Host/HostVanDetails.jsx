@@ -1,17 +1,11 @@
 import React from "react";
-import {
-  useParams,
-  Link,
-  Outlet,
-  NavLink,
-  useLoaderData,
-} from "react-router-dom";
+import { Link, Outlet, NavLink, useLoaderData } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
-import { getHostVans } from "../../Components/apis";
-
-export function loader({ params }) {
+import { getHostVans } from "../../apis";
+import { requireAuth } from "../../utils";
+export async function loader({ params }) {
+  await requireAuth();
   const id = params.id;
-  console.log("id is", id);
   return getHostVans(id);
 }
 export default function HostVanDetail() {
