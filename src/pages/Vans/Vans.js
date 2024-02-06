@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  useSearchParams,
-  Link,
-  useLoaderData,
-  useRouteLoaderData,
-} from "react-router-dom";
+import { useSearchParams, Link, useLoaderData } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
 import { getVans } from "../../Components/apis";
 // import "../App.css";

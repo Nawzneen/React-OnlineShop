@@ -1,24 +1,29 @@
 import React from "react";
-import { useParams, Link, Outlet, NavLink } from "react-router-dom";
+import {
+  useParams,
+  Link,
+  Outlet,
+  NavLink,
+  useLoaderData,
+} from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
-export default function HostVanDetail() {
-  const { id } = useParams();
-  const [currentVan, setCurrentVan] = React.useState(null);
+import { getHostVans } from "../../Components/apis";
 
-  React.useEffect(() => {
-    fetch(`/api/host/vans/${id}`)
-      .then((res) => res.json())
-      .then((data) => setCurrentVan(data.vans[0]));
-  }, []);
+export function loader({ params }) {
+  const id = params.id;
+  console.log("id is", id);
+  return getHostVans(id);
+}
+export default function HostVanDetail() {
+  // [0] is added because the server returns an array instead of the object intself
+  const currentVan = useLoaderData()[0];
+  console.log(currentVan);
 
   const activeStyle = {
     fontWeight: "bold",
     textDecoration: "underline",
   };
 
-  if (!currentVan) {
-    return <h1>Loading...</h1>;
-  }
   return (
     <section className="hostVanDetails-section">
       <Link to=".." relative="path" className="back-button ">

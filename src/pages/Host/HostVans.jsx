@@ -30,6 +30,7 @@ export default function HostVans() {
             className=" col-12 col-md-6  "
             to={`${van.id}`}
             aria-label={`more description of the ${van.name} with the price of ${van.price}`}
+            key={van.id}
           >
             <li
               className="row jsutify-content-center gx-1  "
