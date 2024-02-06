@@ -1,21 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useLoaderData } from "react-router-dom";
+import { getHostVans } from "../../Components/apis";
+export function loader() {
+  return getHostVans();
+}
 export default function HostVans() {
   const liStyle = {
     backgroundColor: "white",
     padding: "15px",
   };
-  const [hostVans, setHostVans] = React.useState([]);
+  // const [hostVans, setHostVans] = React.useState([]);
+  const hostVans = useLoaderData();
   const hostId = "123";
-  React.useEffect(() => {
-    fetch(`/api/host/vans?hostId=${hostId}`)
-      .then((response) => response.json())
-      .then((data) => setHostVans(data.vans))
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   fetch(`/api/host/vans?hostId=${hostId}`)
+  //     .then((response) => response.json())
+  //     .then((data) => setHostVans(data.vans))
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
 
   return (
     <div className="hostVans-section">

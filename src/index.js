@@ -18,7 +18,7 @@ import Dashboard from "./pages/Host/Dashboard.jsx";
 import Income from "./pages/Host/Income.jsx";
 import Reviews from "./pages/Host/Reviews.jsx";
 import HostLayout from "./pages/Host/HostLayout.jsx";
-import HostVans from "./pages/Host/HostVans.jsx";
+import HostVans, { loader as vansHostLoader } from "./pages/Host/HostVans.jsx";
 import HostVanDetails from "./pages/Host/HostVanDetails.jsx";
 import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
 import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
@@ -62,9 +62,12 @@ function App() {
           <Route
             path="vans"
             element={<HostVans />}
-            loader={async () => {
-              return null;
-            }}
+            loader={vansHostLoader}
+            errorElement={<Error />}
+
+            // loader={async () => {
+            //   return null;
+            // }}
           />
           <Route
             path="vans/:id"
