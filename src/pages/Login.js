@@ -1,6 +1,6 @@
 import React from "react";
-// import { useSearchParams } from "react-router-dom";
 import { useLoaderData } from "react-router-dom";
+import { loginUser } from "../apis";
 
 export function loader({ request }) {
   console.log("req is", request);
@@ -14,6 +14,13 @@ export default function Login() {
   // console.log(searchParams);
   function handleSubmit(e) {
     e.preventDefault();
+    loginUser(loginFormData)
+      .then((res) => {
+        console.log("login is successful", res);
+      })
+      .catch((error) => {
+        console.error("Login failed", error);
+      });
   }
   function handleChange(e) {
     const { name, value } = e.target;
