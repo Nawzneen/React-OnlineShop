@@ -8,6 +8,10 @@ export function loader({ request }) {
 }
 export default function Login() {
   const [loginFormData, setLoginFormData] = React.useState({});
+  const [status, setStatus] = React.useState("idle");
+  const [error, setError] = React.useState(null);
+
+  // This message is for redirection to login page when need authentication
   const message = useLoaderData();
   console.log(message);
   // const [searchParams, setSearchParams] = useSearchParams();
@@ -20,10 +24,14 @@ export default function Login() {
       })
       .catch((error) => {
         console.error("Login failed", error);
-      });
+        setError(error);
+      })
+      .finally(() => setStatus("idle"));
+    setError(null);
   }
   function handleChange(e) {
     const { name, value } = e.target;
+    setStatus("submitting");
     console.log("name and value is", name, value);
     setLoginFormData((prev) => ({ ...prev, [name]: value }));
   }
@@ -41,6 +49,7 @@ export default function Login() {
       )}
       <div className=" ">
         <h1>Sign in to your account</h1>
+        {error && <p className="text-danger">{error.message}</p>}
         <form
           onSubmit={handleSubmit}
           className="login-form d-flex flex-column justify-content-center align-items-center mt-4"
@@ -62,7 +71,9 @@ export default function Login() {
             placeholder="Password"
             value={loginFormData.password}
           />
-          <button className="mt-4 p-2 ">Log in</button>
+          <button disbaled={status === "submitting"} className="mt-4 p-2 ">
+            Log in
+          </button>
         </form>
         <p className="mt-4 mb-5">Dont have an account? Create one!</p>
       </div>
