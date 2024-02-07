@@ -26,7 +26,7 @@ import HostVanPhotos from "./pages/Host/HostVanPhotos.jsx";
 import HostVanInfo from "./pages/Host/HostVanInfo.jsx";
 import HostVanPricing from "./pages/Host/HostVanPricing.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import Login from "./pages/Login";
+import Login, { loader as loginLoader } from "./pages/Login";
 import { requireAuth } from "./utils.js";
 
 import "./server";
@@ -36,7 +36,7 @@ function App() {
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
         <Route path="*" element={<NotFound />} />
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login />} loader={loginLoader} />
         <Route index end element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="vans">
