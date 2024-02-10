@@ -33,16 +33,29 @@ import Login, {
 import { requireAuth } from "./utils.js";
 
 import "./server";
+import { TruckFlatbed } from "react-bootstrap-icons";
 
 function App() {
+  // cheking the state of the login for the user
+  const [isLoggedIn, setIsLoggedIn] = React.useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
+      <Route
+        path="/"
+        element={
+          <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        }
+      >
         <Route path="*" element={<NotFound />} />
         <Route
           path="login"
           element={<Login />}
-          action={loginAction}
+          // passing down the loggedin status to the action function
+          action={(obj) => loginAction(obj, setIsLoggedIn)}
+          // action={loginAction}
           loader={loginLoader}
         />
         <Route index end element={<Home />} />

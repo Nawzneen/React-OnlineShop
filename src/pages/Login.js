@@ -7,31 +7,26 @@ export function loader({ request }) {
   // return null;
   return new URL(request.url).searchParams.get("message");
 }
-export async function action(obj) {
+// passing down the login prop to the action
+export async function action(obj, setIsLoggedIn) {
   // console.log(obj);
   const formData = await obj.request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
   const data = await loginUser({ email, password });
   localStorage.setItem("isLoggedIn", true);
+  setIsLoggedIn(true);
+  console.log("this is the object", obj);
 
-  console.log(data);
-  // if (data.token) {
-  //   localStorage.setItem("isLoggedIn", true);
-  //   console.log("saved", localStorage);
-  // } else {
-  //   localStorage.setItem("isLoggedIn", false);
-  //   console.log("didnt saved", localStorage);
-  // }
-  return redirect("/host");
+  throw Object.defineProperty(redirect("/host"), "body", { value: true });
+
+  // return ;
 }
 export default function Login() {
-  // const [status, setStatus] = React.useState("idle");
   const [error, setError] = React.useState(null);
 
   // This message is for redirection to login page when need authentication
   const message = useLoaderData();
-  // const navigate = useNavigate();
   console.log(message);
 
   const style = {

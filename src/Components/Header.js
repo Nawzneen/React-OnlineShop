@@ -2,12 +2,18 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "../App.css";
 
-export default function Header() {
+export default function Header({ isLoggedIn, setIsLoggedIn }) {
   const activeStyle = {
     fontWeight: "bold",
     color: "orange",
     textDecoration: "underline",
   };
+  // const isLoggedIn = localStorage.getItem("isLoggedIn");
+  console.log("this is the stae of loggedin in the grandchild", isLoggedIn);
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+  }
   return (
     <>
       <header className="">
@@ -42,13 +48,24 @@ export default function Header() {
             >
               Vans
             </NavLink>
-            <NavLink
-              to="/Login"
-              className="nav-links"
-              style={({ isActive }) => (isActive ? activeStyle : null)}
-            >
-              Login
-            </NavLink>
+            {isLoggedIn ? (
+              <NavLink
+                to="/"
+                className="nav-links"
+                style={({ isActive }) => (isActive ? activeStyle : null)}
+                onClick={logout}
+              >
+                Logout
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/Login"
+                className="nav-links"
+                style={({ isActive }) => (isActive ? activeStyle : null)}
+              >
+                Login
+              </NavLink>
+            )}
           </div>
         </nav>
       </header>
