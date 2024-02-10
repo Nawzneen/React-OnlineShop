@@ -41,6 +41,10 @@ export default function Login() {
     width: "500px",
   };
 
+  const btnSubmitting = {
+    backgroundColor: "gray",
+  };
+
   return (
     <div className="login-container ,b-5 flex-grow-1 d-flex flex-column justify-content-center align-items-center ">
       {message && (
@@ -69,8 +73,9 @@ export default function Login() {
             placeholder="Password is admin"
           />
           <button
+            className="mt-4 p-2"
+            style={navigation.state === "submitting" ? btnSubmitting : null}
             disbaled={navigation.state === "submitting"}
-            className="mt-4 p-2 "
           >
             {navigation.state === "submitting" ? "Logging In..." : "Log in"}
           </button>
