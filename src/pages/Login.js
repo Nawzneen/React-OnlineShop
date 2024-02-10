@@ -1,5 +1,11 @@
 import React from "react";
-import { useLoaderData, useNavigate, Form, redirect } from "react-router-dom";
+import {
+  useLoaderData,
+  useActionData,
+  useNavigation,
+  Form,
+  redirect,
+} from "react-router-dom";
 import { loginUser } from "../apis";
 
 export function loader({ request }) {
@@ -13,18 +19,20 @@ export async function action(obj, setIsLoggedIn) {
   const formData = await obj.request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
-  const data = await loginUser({ email, password });
-  localStorage.setItem("isLoggedIn", true);
-  setIsLoggedIn(true);
-  console.log("this is the object", obj);
-
-  throw Object.defineProperty(redirect("/host"), "body", { value: true });
-
-  // return ;
+  try {
+    const data = await loginUser({ email, password });
+    localStorage.setItem("isLoggedIn", true);
+    setIsLoggedIn(true);
+    throw Object.defineProperty(redirect("/host"), "body", { value: true });
+  } catch (err) {
+    return err.message;
+  }
 }
 export default function Login() {
-  const [error, setError] = React.useState(null);
-
+  const errorMessage = useActionData();
+  // for the status of submitting
+  const navigation = useNavigation();
+  console.log("navigaton is", navigation);
   // This message is for redirection to login page when need authentication
   const message = useLoaderData();
   console.log(message);
@@ -42,7 +50,7 @@ export default function Login() {
       )}
       <div className=" ">
         <h1>Sign in to your account</h1>
-        {error && <p className="text-danger">{error.message}</p>}
+        {errorMessage && <p className="text-danger fw-bold">{errorMessage}</p>}
         <Form
           method="post"
           className="login-form d-flex flex-column justify-content-center align-items-center mt-4"
@@ -52,19 +60,19 @@ export default function Login() {
             className="mt-4 p-2 "
             name="email"
             type="email"
-            placeholder="Email address"
+            placeholder="Email address is admin@admin.com "
           />
           <input
             className="mt-4 p-2"
             name="password"
             type=""
-            placeholder="Password"
+            placeholder="Password is admin"
           />
           <button
-            // disbaled={status === "submitting"}
+            disbaled={navigation.state === "submitting"}
             className="mt-4 p-2 "
           >
-            Log in
+            {navigation.state === "submitting" ? "Logging In..." : "Log in"}
           </button>
         </Form>
         <p className="mt-4 mb-5">Dont have an account? Create one!</p>
