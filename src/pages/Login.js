@@ -5,6 +5,7 @@ import {
   useNavigation,
   Form,
   redirect,
+  useNavigate,
 } from "react-router-dom";
 import { loginUser } from "../apis";
 
@@ -23,7 +24,8 @@ export async function action(obj, setIsLoggedIn) {
     const data = await loginUser({ email, password });
     localStorage.setItem("isLoggedIn", true);
     setIsLoggedIn(true);
-    throw Object.defineProperty(redirect("/host"), "body", { value: true });
+    // return redirect("/host");
+    return Object.defineProperty(redirect("/host"), "body", { value: true });
   } catch (err) {
     return err.message;
   }
