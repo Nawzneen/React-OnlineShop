@@ -76,7 +76,7 @@ createServer({
     server.create("user", {
       id: "123",
       email: "admin@admin.com",
-      password: "adming",
+      password: "admin",
       name: "Bob",
     });
   },
