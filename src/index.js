@@ -90,12 +90,13 @@ function App() {
             path="vans"
             element={<HostVans />}
             loader={vansHostLoader}
-            // errorElement={<Error />}
+            errorElement={<Error />}
           />
           <Route
             path="vans/:id"
             element={<HostVanDetails />}
             loader={vanHostDetailLoader}
+            errorElement={<Error />}
           >
             <Route
               index
