@@ -17,13 +17,16 @@ export function loader() {
 export default function Vans() {
   const [vansTypes, setVansType] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const vans = useLoaderData();
+  const vansPromise = useLoaderData();
 
+  // Finding the types from the data dynamically
+  // I am not sure if this code is currect
   useEffect(() => {
-    if (vans) {
-      setVansType(Array.from(new Set(vans.map((van) => van.type))));
-    }
-  }, [vans]);
+    vansPromise.vans.then((vansData) => {
+      setVansType(vansData);
+      setVansType(Array.from(new Set(vansData.map((van) => van.type))));
+    });
+  }, [vansPromise]);
 
   function handleFilterChange(key, value) {
     setSearchParams((prevParams) => {
@@ -35,16 +38,15 @@ export default function Vans() {
       return prevParams;
     });
   }
-  const typeFilter = searchParams.get("type");
 
-  const displayedVans = typeFilter
-    ? vans.filter((van) => van.type === typeFilter)
-    : vans;
-  console.log("displaye vans", displayedVans);
-  return (
-    <div className="van-section">
-      <div className="container">
-        <h2 className="fw-bold mt-5 ">Explore our van options</h2>
+  function renderVanElements(vans) {
+    // Getting filtered van
+    const typeFilter = searchParams.get("type");
+    const displayedVans = typeFilter
+      ? vans.filter((van) => van.type === typeFilter)
+      : vans;
+    return (
+      <>
         <div className="d-flex  justify-content-between align-items-center mt-5">
           <div
             className="
@@ -113,6 +115,16 @@ export default function Vans() {
               </li>
             ))}
         </ul>
+      </>
+    );
+  }
+  return (
+    <div className="van-section">
+      <div className="container">
+        <h2 className="fw-bold mt-5 ">Explore our van options</h2>
+        <React.Suspense fallback={<h2>Loading Vans...</h2>}>
+          <Await resolve={vansPromise.vans}>{renderVanElements}</Await>
+        </React.Suspense>
       </div>
     </div>
   );
