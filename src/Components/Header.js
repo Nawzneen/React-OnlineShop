@@ -8,8 +8,6 @@ export default function Header({ isLoggedIn, setIsLoggedIn }) {
     color: "orange",
     textDecoration: "underline",
   };
-  // const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log("this is the stae of loggedin in the grandchild", isLoggedIn);
   function logout() {
     localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);

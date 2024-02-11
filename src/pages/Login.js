@@ -10,22 +10,23 @@ import {
 import { loginUser } from "../apis";
 
 export function loader({ request }) {
-  // console.log("req is", request);
-  // return null;
   return new URL(request.url).searchParams.get("message");
 }
 // passing down the login prop to the action
-export async function action(obj, setIsLoggedIn) {
-  // console.log(obj);
-  const formData = await obj.request.formData();
+export async function action({ request }, setIsLoggedIn) {
+  console.log("rqu in action is", request);
+  const formData = await request.formData();
   const email = formData.get("email");
   const password = formData.get("password");
+  const prevPathname =
+    new URL(request.url).searchParams.get("redirectTo") || "/host";
   try {
     const data = await loginUser({ email, password });
     localStorage.setItem("isLoggedIn", true);
     setIsLoggedIn(true);
-    // return redirect("/host");
-    return Object.defineProperty(redirect("/host"), "body", { value: true });
+    return Object.defineProperty(redirect(prevPathname), "body", {
+      value: true,
+    });
   } catch (err) {
     return err.message;
   }
@@ -34,10 +35,8 @@ export default function Login() {
   const errorMessage = useActionData();
   // for the status of submitting
   const navigation = useNavigation();
-  console.log("navigaton is", navigation);
   // This message is for redirection to login page when need authentication
   const message = useLoaderData();
-  console.log(message);
 
   const style = {
     width: "500px",

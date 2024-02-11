@@ -74,12 +74,16 @@ function App() {
             errorElement={<Error />}
           />
         </Route>
-        <Route path="host" element={<HostLayout />}>
+        <Route
+          path="host"
+          element={<HostLayout />}
+          loader={async ({ request }) => await requireAuth(request)}
+        >
           <Route
             index
             element={<Dashboard />}
-            loader={async () => {
-              return await requireAuth();
+            loader={async ({ request }) => {
+              return await requireAuth(request);
             }}
           />
           <Route
@@ -96,22 +100,22 @@ function App() {
             <Route
               index
               element={<HostVanInfo />}
-              loader={async () => {
-                return await requireAuth();
+              loader={async ({ request }) => {
+                return await requireAuth(request);
               }}
             />
             <Route
               path="pricing"
               element={<HostVanPricing />}
-              loader={async () => {
-                return await requireAuth();
+              loader={async ({ request }) => {
+                return await requireAuth(request);
               }}
             />
             <Route
               path="photos"
               element={<HostVanPhotos />}
-              loader={async () => {
-                return await requireAuth();
+              loader={async ({ request }) => {
+                return await requireAuth(request);
               }}
             />
           </Route>
