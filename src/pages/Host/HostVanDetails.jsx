@@ -1,16 +1,23 @@
 import React from "react";
-import { Link, Outlet, NavLink, useLoaderData } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  NavLink,
+  useLoaderData,
+  Await,
+  difer,
+} from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
 import { getHostVans } from "../../apis";
 import { requireAuth } from "../../utils";
 export async function loader({ params, request }) {
   await requireAuth(request);
   const id = params.id;
+  console.log(getHostVans(id));
   return getHostVans(id);
 }
 export default function HostVanDetail() {
-  // [0] is added because the server returns an array instead of the object intself
-  const currentVan = useLoaderData()[0];
+  const currentVan = useLoaderData();
   console.log(currentVan);
 
   const activeStyle = {
