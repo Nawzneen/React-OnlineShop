@@ -17,15 +17,20 @@ export function loader() {
 export default function Vans() {
   const [vansTypes, setVansType] = React.useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  // We get a promise here and not the data
   const vansPromise = useLoaderData();
 
   // Finding the types from the data dynamically
   // I am not sure if this code is currect
   useEffect(() => {
-    vansPromise.vans.then((vansData) => {
-      setVansType(vansData);
-      setVansType(Array.from(new Set(vansData.map((van) => van.type))));
-    });
+    vansPromise.vans
+      .then((vansData) => {
+        setVansType(vansData);
+        setVansType(Array.from(new Set(vansData.map((van) => van.type))));
+      })
+      .catch((error) => {
+        console.log("Error fetching van data", error);
+      });
   }, [vansPromise]);
 
   function handleFilterChange(key, value) {
@@ -41,6 +46,7 @@ export default function Vans() {
 
   function renderVanElements(vans) {
     // Getting filtered van
+
     const typeFilter = searchParams.get("type");
     const displayedVans = typeFilter
       ? vans.filter((van) => van.type === typeFilter)
@@ -123,7 +129,9 @@ export default function Vans() {
       <div className="container">
         <h2 className="fw-bold mt-5 ">Explore our van options</h2>
         <React.Suspense fallback={<h2>Loading Vans...</h2>}>
-          <Await resolve={vansPromise.vans}>{renderVanElements}</Await>
+          <Await resolve={vansPromise.vans}>
+            {(vans) => renderVanElements(vans)}
+          </Await>
         </React.Suspense>
       </div>
     </div>
