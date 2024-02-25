@@ -8,13 +8,13 @@ import {
   difer,
 } from "react-router-dom";
 import TypeBtn from "../../Components/Button/TypeBtn";
-import { getHostVans } from "../../apis";
+import { getVan } from "../../apis";
 import { requireAuth } from "../../utils";
 export async function loader({ params, request }) {
   await requireAuth(request);
   const id = params.id;
-  console.log(getHostVans(id));
-  return getHostVans(id);
+
+  return getVan(id);
 }
 export default function HostVanDetail() {
   const currentVan = useLoaderData();
