@@ -4,6 +4,8 @@ import { initializeApp } from "firebase/app";
 import {
   getFirestore,
   collection,
+  doc,
+  getDoc,
   getDocs,
   query,
   where,
@@ -34,6 +36,15 @@ export async function getVans() {
   }));
   console.log(dataArr);
   return dataArr;
+}
+
+export async function getVan(id) {
+  const docRef = doc(db, "vans", id);
+  const vanSnapshot = await getDoc(docRef);
+  return {
+    ...vanSnapshot.data(),
+    id: vanSnapshot.id,
+  };
 }
 
 // export async function getVans(id) {

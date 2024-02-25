@@ -1,12 +1,11 @@
 import React from "react";
-import { useLocation, useParams, Link, useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useLocation, Link, useLoaderData } from "react-router-dom";
 import { ArrowLeft } from "react-bootstrap-icons";
 import TypeBtn from "../../Components/Button/TypeBtn";
-import { getVans } from "../../apis";
+import { getVan } from "../../apis";
+
 export function loader({ params }) {
-  console.log(params);
-  return getVans(params.id);
+  return getVan(params.id);
 }
 export default function VanDetails(props) {
   const location = useLocation();
