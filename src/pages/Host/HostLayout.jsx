@@ -1,7 +1,12 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
-
+import ThemeContext from "./themeContext.js";
 export default function HostLayout() {
+  const [theme, setTheme] = React.useState("dark");
+  function toggleTheme() {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+    console.log("the button is being clicked");
+  }
   const activeStyle = {
     fontWeight: "bold",
     color: "orange",

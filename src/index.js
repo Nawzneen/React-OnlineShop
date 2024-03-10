@@ -31,6 +31,7 @@ import Login, {
   action as loginAction,
 } from "./pages/Login";
 import { requireAuth } from "./utils.js";
+import ThemeContext, { themeContext } from "./pages/Host/themeContext.js";
 
 import "./server";
 import { TruckFlatbed } from "react-bootstrap-icons";
@@ -40,13 +41,21 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     localStorage.getItem("isLoggedIn") === "true"
   );
+  const [theme, setTheme] = React.useState("dark");
+  function toggleTheme() {
+    setTheme((prevTheme) => (prevTheme === "dark" ? "light" : "dark"));
+  }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route
         path="/"
         element={
-          <Layout isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Layout
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            toggleTheme={toggleTheme}
+          />
         }
       >
         <Route path="*" element={<NotFound />} />
@@ -74,6 +83,7 @@ function App() {
             errorElement={<Error />}
           />
         </Route>
+
         <Route
           path="host"
           element={<HostLayout />}
@@ -128,9 +138,11 @@ function App() {
     )
   );
   return (
-    <div className="app-container">
-      <RouterProvider router={router} />
-    </div>
+    <ThemeContext.Provider value={theme}>
+      <div className="app-container">
+        <RouterProvider router={router} />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
