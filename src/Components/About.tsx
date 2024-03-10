@@ -2,12 +2,16 @@ import React from "react";
 import "../App.css";
 import aboutPageImage from "../Images/about-page.png";
 import { Link } from "react-router-dom";
-
+type AboutPageImageType = typeof aboutPageImage;
 export default function About() {
   return (
     <div className="about">
       <div className="img-container">
-        <img src={aboutPageImage} alt="About Page" className="about-img" />
+        <img
+          src={aboutPageImage as AboutPageImageType}
+          alt="About Page"
+          className="about-img"
+        />
       </div>
 
       <div className="container about-container  mt-4">
